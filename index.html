@@ -1,240 +1,353 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مساحة خاصة للتعبير والبوح 🎁</title>
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0f172a; color: #f8fafc; text-align: center; padding: 20px; margin: 0; }
-    .card { background: #1e293b; max-width: 520px; margin: 30px auto; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-    h2, h3 { color: #f1f5f9; line-height: 1.5; }
-    p { color: #cbd5e1; font-size: 15px; }
-    input[type="text"], textarea { padding: 14px; margin: 12px 0; width: 90%; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 15px; box-sizing: border-box; }
-    textarea { height: 110px; resize: vertical; }
-    button { padding: 12px 20px; margin: 8px 0; width: 100%; border-radius: 8px; border: none; font-size: 15px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
-    .btn-main { background: #3b82f6; color: #fff; }
-    .btn-main:hover { background: #2563eb; }
-    .option-btn { background: #334155; color: #f8fafc; text-align: right; font-weight: normal; }
-    .option-btn:hover { background: #475569; }
-    .hidden { display: none; }
-    .progress { height: 8px; background: #334155; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
-    .bar { height: 100%; background: #3b82f6; width: 0%; transition: width 0.3s; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مساحتك الخاصة 🌿</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s transform, 0.3s background;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: rgba(51, 65, 85, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 14px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            text-align: right;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: #38bdf8;
+        }
+
+        .wifi-card {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border: 2px dashed #818cf8;
+            border-radius: 18px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .wifi-card h3 {
+            color: #a7f3d0;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .wifi-card p {
+            color: #e0e7ff;
+            margin-bottom: 0;
+        }
+
+        .hidden { display: none; }
+        
+        .progress {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- شاشة 1: كتابة الاسم -->
-  <div class="card" id="screen-name">
-    <h2>أهلاً بك في هذه المساحة الخاصة 🤍</h2>
-    <p>قبل أن نبدأ، نتمنى أن تشاركنا اسمك المقرب:</p>
-    <input type="text" id="user-name" placeholder="اكتب اسمك هنا..." required>
-    <button class="btn-main" onclick="goToMoodScreen()">التالي</button>
-  </div>
+    <div class="card">
+        <!-- الشاشة 1: الاسم والتعهد بالسرية -->
+        <div id="step-name">
+            <h2>مرحباً بك في مساحتك الآمنة 🌿</h2>
+            <p>أهلاً بك.. هنا مكان مخصص لك تماماً للتعبير والفضفضة براحتك. كل ما تذكره هنا يظل في سرية تامة وشخصية بيننا.</p>
+            <input type="text" id="user-name" placeholder="اكتب اسمك هنا..." autocomplete="off">
+            <button class="btn" onclick="startQuiz()">المتابعة</button>
+        </div>
 
-  <!-- شاشة 2: اختيار الشعور الأساسي -->
-  <div class="card hidden" id="screen-mood">
-    <h3>من ماذا تعاني أو بماذا تشعر؟</h3>
-    <div id="mood-options"></div>
-  </div>
+        <!-- الشاشة 2: تحديد الشعور -->
+        <div id="step-feeling" class="hidden">
+            <h2>كيف تشعر في هذه اللحظة؟ 💭</h2>
+            <p>اختر ما يعبر عن شعورك الحالي بكل صدق:</p>
+            <div class="options-grid">
+                <button class="option-btn" onclick="selectFeeling('broken', 'كسرت من الداخل من كل شيء 💔')">💔 كسرت من الداخل من كل شيء</button>
+                <button class="option-btn" onclick="selectFeeling('lonely', 'تعاني من الوحشة والوحدة 🖤')">🖤 تعاني من الوحشة والوحدة</button>
+                <button class="option-btn" onclick="selectFeeling('missing', 'تشتاق لشخص لم يعد موجوداً في حياتك ❄️')">❄️ تشتاق لشخص لم يعد موجوداً في حياتك</button>
+                <button class="option-btn" onclick="selectFeeling('attachment', 'انتهت علاقة وما زلت متعلقاً 🔗')">🔗 انتهت علاقة وما زلت متعلقاً</button>
+                <button class="option-btn" onclick="selectFeeling('pain', 'تخفي شيئاً يؤلمك ولا تستطيع البوح به 😶')">😶 تخفي شيئاً يؤلمك ولا تستطيع البوح به</button>
+                <button class="option-btn" onclick="selectFeeling('problem', 'لديك مشكلة لا تستطيع الحديث عنها 🔒')">🔒 لديك مشكلة لا تستطيع الحديث عنها</button>
+            </div>
+        </div>
 
-  <!-- شاشة 3: الأسئلة الـ 5 العميقة -->
-  <div class="card hidden" id="screen-quiz">
-    <div class="progress"><div class="bar" id="progress-bar"></div></div>
-    <h3 id="question-text">السؤال يظهر هنا</h3>
-    <div id="quiz-options"></div>
-  </div>
+        <!-- الشاشة 3: الأسئلة الـ 5 -->
+        <div id="step-questions" class="hidden">
+            <div class="progress" id="question-progress">السؤال 1 من 5</div>
+            <h2 id="question-title">عنوان السؤال</h2>
+            <div class="options-grid" id="question-options"></div>
+        </div>
 
-  <!-- شاشة 4: السؤال الكتابي المفتوح -->
-  <div class="card hidden" id="screen-text">
-    <h3 id="text-prompt-title">اكتب شيء تريد أن تقوله...</h3>
-    <textarea id="final-written-text" placeholder="اكتب كل ما تجول به خاطرك هنا بحرية..."></textarea>
-    <button class="btn-main" onclick="finishQuiz()">إنهاء وفتح الهدية 🎁</button>
-  </div>
+        <!-- الشاشة 4: الرسالة التحفيزية -->
+        <div id="step-motivation" class="hidden">
+            <h2>كلمات من القلب لك ✨</h2>
+            <p id="motivation-text" style="font-size: 1.15rem; line-height: 1.8; color: #e2e8f0; text-align: justify; text-align-last: center; margin-bottom: 30px;">
+                <!-- سيتم تعبئة النص التحفيزي تلقائياً -->
+            </p>
+            <button class="btn" onclick="openGift()">فتح الهدية 🎁</button>
+        </div>
 
-  <!-- شاشة 5: شاشة الهدية النهائية -->
-  <div class="card hidden" id="screen-gift">
-    <h2>🎉 شكراً لشرك تك ومشاعر الصادقة يا <span id="display-name"></span></h2>
-    <p>لقد وصلت لنهاية رحلتك معنا...</p>
-    <div style="font-size: 80px; margin: 20px 0;">🎁</div>
-    <p><b>هديتك:</b> أنت شخص قوي، والاعتراف بما تشعر به هو أول خطوات التعافي. تذكر دائماً أنك لست وحدك، وهناك دائماً غدٌ أجمل بانتظارك.</p>
-  </div>
+        <!-- الشاشة 5: فتح الهدية وكرت الواي فاي -->
+        <div id="step-gift" class="hidden">
+            <h2>مفاجأة خاصة لك 🎁✨</h2>
+            <p>شكراً لثقتك ووقتك ومشاركتك مشاعرك معنا.</p>
+            
+            <div class="wifi-card">
+                <h3>📶 كرت شبكة واي فاي (الغيث للنت)</h3>
+                <p style="margin-top: 10px; font-weight: bold; color: #fef08a;">
+                    سأرسل لك رمز الكارت الآن مباشرة! ⚡
+                </p>
+            </div>
 
-  <script>
-    // ضع رابط Formspree الخاص بك هنا لاستقبال الإجابات على إيميلك
-    const FORMSPREE_URL = "https://formspree.io/f/xnpakppb";
+            <p style="font-size: 0.95rem; color: #94a3b8;">تذكر دائماً أنك لست وحدك، وهناك دائماً غدٌ أجمل بانتظارك ❤️</p>
+        </div>
+    </div>
 
+    <script>
+        // رابط Formspree الخاص بك
+        const FORMSPREE_URL = "https://formspree.io/f/xnpakppb";
 
-    let userName = "";
-    let selectedMood = "";
-    let currentQuestionIndex = 0;
-    let userAnswers = [];
+        let userName = "";
+        let selectedFeelingText = "";
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let currentQuestionsList = [];
 
-    // خيارات الشعور 7
-    const moods = [
-      { id: "broken", text: "🫟 كسرت من الداخل من كل شيء" },
-      { id: "lonely", text: "🖤 تعاني من الوحدة؟" },
-      { id: "missing", text: "🫂 تشتاق لشخص لم يعد موجودًا في حياتك؟" },
-      { id: "heartbroken", text: "💔 انتهت علاقة وما زلت متعلّقًا؟" },
-      { id: "hidden", text: "😶 تخفي شيئًا يؤلمك ولا تستطيع البوح به؟" },
-      { id: "secret_prob", text: "🔒 لديك مشكلة لا تستطيع الحديث عنها؟" },
-      { id: "just_listen", text: "🤍 لا تعاني من شيء، فقط تحتاج أحدًا يسمعك؟" }
-    ];
+        // بنك الأسئلة والرسائل التحفيزية لكل حالة
+        const dataBank = {
+            broken: {
+                motivation: "اعلم أن الانكسار ليس نهاية المطاف، بل هو إعادة بناء لنفسك بشكل أقوى. حتى الزجاج عندما ينكسر ويُعاد تشكيله يخرج بشكل أجمل تحت النار. ارفق بنفسك، ولا تضغط على روحك، فما مررت به كان صعباً لكنك ما زلت صامداً وسوف تشرق من جديد.",
+                questions: [
+                    { title: "ما أكثر شيء شعرت أنه كسرك مؤخراً؟", options: ["خيبة أمل من شخص قريب", "تراكم الضغوطات والظروف", "فقدان شغفك وأهدافك", "الشعور بعدم التقدير"] },
+                    { title: "عندما تتألم من الداخل، ماذا تفعل؟", options: ["ألتزم الصمت وأنزوي بنفسي", "أحاول النوم للهرب", "أبكي بيني وبين نفسي", "أتظاهر أن كل شيء بخير"] },
+                    { title: "هل تلوم نفسك على ما حدث؟", options: ["نعم بكثرة", "أحياناً", "أعلم أنه ليس ذنبي ولكن يكسرني", "أحاول ألا ألومها"] },
+                    { title: "ما الذي تحتاجه لتستعيد قواك الآن؟", options: ["وقت للراحة والابتعاد", "شخص يفهمني بصدق", "بداية جديدة في مكان آخر", "طمأنينة وأمان"] },
+                    { title: "هل تعتقد أن الأيام القادمة ستكون ألطف؟", options: ["أتمنى ذلك بشدة", "لدي أمل رغم الألم", "صعب أصدق ذلك حالياً", "أحاول التفاؤل"] }
+                ]
+            },
+            lonely: {
+                motivation: "الوحدة أحياناً ليست غياب الناس من حولك، بل غياب من يشبه روحك. تذكر دائماً أن كونك لوحدك أفضل بكثير من تواجدك مع من لا يشعر بك. وجودك قيمة كبيرة، وستجد من يقدر روحك ويفهمك دون أن تتكلم.",
+                questions: [
+                    { title: "متى تشعر بالوحدة أكثر؟", options: ["في منتصف الليل", "وسط الزحام والناس", "عندما أواجه مشكلة", "في أوقات فراغي"] },
+                    { title: "هل تجد صعوبة في فتح قلبك للآخرين؟", options: ["نعم، أخشى الخيبة", "نعم، لا أحب الشكوى", "أحياناً حسب الشخص", "لا ولكن لا يوجد من يفهم"] },
+                    { title: "ماذا تعني لك الوحدة حالياً؟", options: ["هدوء وهروب", "ألم وثقل على الروح", "فرصة لمراجعة نفسي", "شعور بالغربة"] },
+                    { title: "ما الذي تنشغل به ليخفف عنك هذا الشعور؟", options: ["التصفح والهاتف", "الاستماع للموسيقى/الصوتيات", "النوم لفترات طويلة", "التفكير والتأمل"] },
+                    { title: "لو كان بإمكانك التواجد مع شخص الآن، من سيكون؟", options: ["شخص قديم اشتقت له", "شخص يفهم غموضي", "أفضل البقاء وحدي حالياً", "صديق مخلص حقيقي"] }
+                ]
+            },
+            missing: {
+                motivation: "الاشتياق دليل على صدق مشاعرك ونقاء قلبك. الغائبون قد يرحلون عن أعيننا لكنهم يتركون أثراً لا يمحى. تذكر الأوقات الجميلة بابتسامة، وادعُ لروحك بالسلام، فالمشاعر الصادقة لا تضيع أبداً.",
+                questions: [
+                    { title: "ما الذي يذكرك به أكثر شي؟", options: ["أماكن أو أغانٍ معينة", "أوقات الليل والهدوء", "مواقف وأحاديث سابقة", "كل شيء يذكرني به"] },
+                    { title: "هل تتمنى لو تعود الأيام للخلف؟", options: ["بشدة وأتمنى لو أغير أشياء", "نعم لنعيش اللحظة مجدداً", "فقط لأقول كلاماً لم أقوله", "لا، الماضي انتهى"] },
+                    { title: "كيف تتصرف عندما يغلبك الشوق؟", options: ["أراجع صور ورسائل قديمة", "ألتزم الصمت والهدوء", "أحاول إشغال نفسي", "أدعوا له بالخير والراحة"] },
+                    { title: "هل تعتقد أنه يتذكرك بنفس القدر؟", options: ["أتمنى ذلك", "أعتقد نعم", "لا أظن ذلك", "المهم ما أشعره أنا"] },
+                    { title: "ما الرسالة القصيرة التي ترغب بإيصالها له؟", options: ["اشتقت لك جداً", "أتمنى أن تكون بخير", "لم أنسك ولن أنساك", "شكراً على كل لحظة جميلة"] }
+                ]
+            },
+            attachment: {
+                motivation: "التعلق بعد الانتهاء مرحلة طبيعية ومرهقة، لكنها ليست الأبدية. الأيام كفيلة بترتيب المشاعر وتضميد الجراح. أنت تستحق علاقة تبقيك آمناً ومقدراً، ولا تحزن على شيء مضى فما كان لك لن يخطئك.",
+                questions: [
+                    { title: "ما السبب الأكبر الذي يجعلك متمسكاً بالذكريات؟", options: ["لأن المشاعر كانت صادقة جداً", "الخوف من الأيام بدون هذا الشخص", "الأمل في إصلاح ما حدث", "التعود عليه لفترة طويلة"] },
+                    { title: "هل تحاول متابعة أخباره أو حساباته؟", options: ["أحياناً دون قصد", "نعم بانتظام", "أحاول منع نفسي بشدة", "لا، قاطعت كل شيء"] },
+                    { title: "ما أكثر ما يؤلمك في هذا الانفصال؟", options: ["طريقة النهاية", "التغير الفجائي في المشاعر", "الشعور بالفراغ بعده", "الذكريات المشتركة"] },
+                    { title: "هل تعتقد أنك قادر على التجاوز مستقبلاً؟", options: ["نعم، أحتاج وقتاً فقط", "صعب جداً في الوقت الحالي", "أحاول يوماً بيوم", "أتمنى التجاوز قريباً"] },
+                    { title: "ما الشيء الذي تحتاجه الآن لتشعر بالتعافي؟", options: ["القطع النهائي والتام", "إجابات لأسئلة معلقة", "الاهتمام بنفسي وبصحتي", "تقبل الواقع كما هو"] }
+                ]
+            },
+            pain: {
+                motivation: "الكتمان جهاد كبير لروحك، وكتمان الألم يزيد من قيمتك وشجاعتك، لكن لا تحمل نفسك فوق طاقتها. أنت قوي لأنك تحملت كل هذا بمفردك، ورسالتك وصلت وتأكد أنك مأجور ومقدر على صبرك وطيبة قلبك.",
+                questions: [
+                    { title: "لماذا تفضل الكتمان على البوح؟", options: ["لأن لا أحد سيفهم عمق ألمي", "لا أريد إزعاج من حولي", "خوفاً من الاستهانة بمشاعري", "لأن الكلام لن يغير شيئاً"] },
+                    { title: "كيف يؤثر هذا الألم المخفي عليك؟", options: ["تعب جسدي وإرهاق مستمر", "تفكير متواصل وضغط نفسي", "تقلبات في المزاج", "فقدان رغبة بالحديث"] },
+                    { title: "هل تشعر أن هناك من يحس بألمك دون أن تتكلم؟", options: ["للأسف لا أحد", "ربما شخص واحد فقط", "يشعرون بالتغير فقط وليس السبب", "أتقن التمثيل بأنني بخير"] },
+                    { title: "لو أتيحت لك الفرصة لتتحدث دون خوف، هل ستفعل؟", options: ["نعم لشخص معين", "ربما في وقت لاحق", "لا، الفكرة أسهل في الكتمان", "فقط لو كان يسمع بقلبه"] },
+                    { title: "ما الكلمة التي تصف بها شعورك الداخلي الآن؟", options: ["اختناق", "تعب", "صبر", "انتظار الفرَج"] }
+                ]
+            },
+            problem: {
+                motivation: "لكل مشكلة بداية ولها نهاية حتمية، وظلمة الليل تتفجر دائماً عن نور الفجر. لا تدع التفكير يستنزف طاقتك في أمور قد يحلها الله بلطفه من حيث لا تحتسب. كن صبوراً وقوياً، فرجك قريب جداً.",
+                questions: [
+                    { title: "هل هذه المشكلة تتعلق بـ؟", options: ["مستقبلك أو قرارات شخصية", "علاقات اجتماعية/عائلية", "ضغوطات صحية أو نفسية", "أمور مالية أو دراسية"] },
+                    { title: "منذ متى وأنت تحمل هم هذه المشكلة؟", options: ["منذ أيام قليلة", "منذ عدة أشهر", "من فترة طويلة جداً", "حديثة ولكنها ثقيلة"] },
+                    { title: "هل حاولت البحث عن حلول لها؟", options: ["نعم وجربت كل الطرق", "أبحث عن حلول حالياً", "المشكلة ليست بيدي", "أنتظر الأيام لتهدئة الأمور"] },
+                    { title: "هل تؤثر هذه المشكلة على نومك ويومك؟", options: ["نعم تؤرقني بشدة", "أحياناً عند التفكير فيها", "أحاول الفصل وتجاهلها", "تؤثر على تركيزي فقط"] },
+                    { title: "ما الشيء الذي لو حدث سيزيح هذا الهم عنك؟", options: ["انفراج المشكلة وتيسيرها", "وجود شخص يساندني فيها", "تغيير الظروف الحالية", "أن أصل لراحة البال"] }
+                ]
+            }
+        };
 
-    // بننك الأسئلة العميقة المخصصة لكل حالة (5 أسئلة بـ 4 خيارات + سؤال مفتوح)
-    const questionsDatabase = {
-      broken: {
-        prompt: "اكتب رسالة لنفسك المكسورة التي تحاول الصمود رغم كل شيء:",
-        questions: [
-          { q: "ما الذي أرهق روحك أكثر في الفترة الأخيرة؟", options: ["الخيبات المتكررة", "التظاهر بأني بخير", "الضغط النفسي المتواصل", "شعور أن لا أحد يفهمني"] },
-          { q: "عندما تكسر من الداخل، كيف تتصرف عادة؟", options: ["أعتزل الجميع وأصمت", "أبتسم وأكتفي بالسكوت", "أحاول الشغل كي لا أفكر", "أبكي بيني وبين نفسي"] },
-          { q: "ما الذي تحتاجه حالياً لتشعر بالقليل من الأمان؟", options: ["استراحة طويلة من كل شيء", "شخص يفهم دون شرح", "تغيير كامل في حياتي", "هدوء وسلام داخلي"] },
-          { q: "هل تشعر أن الخيبة جاءت ممن لم تتوقع منهم ذلك؟", options: ["نعم، وكانت الصدمة قاسية", "أغلب الخيبات ممن أحببتهم", "تعلمت ألا أتوقع شيئاً", "نعم، وما زلت أحاول الاستيعاب"] },
-          { q: "رغم الخراب الداخلي، ما الذي يجعلك تستمر؟", options: ["أمل صغير بأن الغد أفضل", "واجباتي تجاه من أحب", "إيماني بالله ورحمته", "قوتي الدفينة التي أكتشفها"] }
-        ]
-      },
-      lonely: {
-        prompt: "اكتب شيئاً تمنيت لو أن هناك أحداً بجانبك الآن ليسمعه منك:",
-        questions: [
-          { q: "متى يشتد عليك شعور الوحدة أكثر؟", options: ["في منتصف الليل قبل النوم", "وسط الزحام والناس", "عندما يحدث معي شيء سعيد ولا أجد من أشاركه", "في أوقات حزني وضائقتي"] },
-          { q: "هل الشعور بالوحدة لديك هو غياب الناس أم غياب الفهم؟", options: ["غياب شخص يفهم تفاصيلي", "وجود الناس دون فائدة", "شعور بالغربة حتى مع أقربهم", "الكل ممتلئ بحياته عني"] },
-          { q: "كيف تقضي أوقات وحدتك القاسية؟", options: ["بالتفكير المفرط", "بالسرحان والموسيقى", "النوم للهرب من الشعور", "التصفح بلا هدف"] },
-          { q: "هل تحاول البحث عن رفقة أم فضّلت العزلة؟", options: ["تعبت من المحاولة وأفضّل العزلة", "أتمنى شخصاً صادقاً يناسبني", "أخاف من التقارب ثم الخذلان", "أتقبل وضع الحالي بألم"] },
-          { q: "ما الذي تعتقده أنه يفتقده يومك؟", options: ["حديث دافئ وعميق", "اهتمام حقيقي غير مشروط", "شخص يسأل عني بصدق", "مساحة آمنة للتعبير"] }
-        ]
-      },
-      missing: {
-        prompt: "اكتب رسالة لهذا الشخص الذي تشتاق إليه ولم يعد موجوداً في حياتك:",
-        questions: [
-          { q: "ما الذي تحن إليه أكثر في هذا الشخص؟", options: ["تفاصيل حديثنا اليومي", "نبرة صوته وضحكته", "الشعور بالأمان بقربه", "ذكرياتنا المشتركة"] },
-          { q: "كيف تتعامل مع الذكريات التي تجمعكما؟", options: ["تزورني بالليل وتؤلمني", "أحاول مسحها ولا أستطيع", "أبتسم بحزن وأشتاق", "أحاول التغافل عنها"] },
-          { q: "هل تمنت لو أنك قلت له شيئاً قبل أن يختفي؟", options: ["تمنيت أن يعلم كم أحبه", "تمنيت لو أصلحنا ما حدث", "عتاب كبير لم أستطع قوله", "كلمة وداع حقيقية"] },
-          { q: "لو أتيحت لك فرصة لرؤيته لدقيقة واحدة، ماذا تفعل؟", options: ["أحتضنه دون كلام", "أسأله: لماذا رحلت؟", "أخبره أن الحياة صعبة بدونه", "أكتفي بالنظر إليه وصمت"] },
-          { q: "هل تعتقد أن الغياب غير فيك الكثير؟", options: ["نعم، انكسر شيء لا يصلح", "أصبحت أكثر حذراً وصمتاً", "تعلمت الصبر بالقوة", "ما زلت أعيش على أمل اللقاء"] }
-        ]
-      },
-      heartbroken: {
-        prompt: "اكتب كل المشاعر أو العتاب الذي بقي عالقاً في صدرك بعد نهاية هذه العلاقة:",
-        questions: [
-          { q: "ما هو الجزء الأصعب عليك في هذه النهاية؟", options: ["تقبل أننا أصبحنا غريبين", "الاشتياق لشخص ما زال حياً", "استرجاع وعوده الزائفة", "البداية من جديد بمفردي"] },
-          { q: "هل ما زلت تتابع أخباره أو تفكر به؟", options: ["نعم، رغماً عني وبكلي", "أحاول منع نفسي بصعوبة", "أفكر فيه فقط عندما أخلو بنفسي", "انقطعت أخباره ولكن طيفه باقي"] },
-          { q: "ما الشعور السائد لديك تجاه ما حدث؟", options: ["ندم على كل ما قدمته", "حزن عميق وفراغ", "خذلان من شخص وثقت به", "حيرة ولماذا انتهى كل شيء"] },
-          { q: "ما الذي يمنعك من التخطي الكامل حتى الآن؟", options: ["كثرة الذكريات والأسئلة", "أمل ضعيف في العودة", "صعوبة البداية مع غيره", "عمق الأثر الذي تركه"] },
-          { q: "لو عاد الزمان إلى بداية هذه العلاقة، ماذا ستختار؟", options: ["سأبتعد ولن أبدأها", "سأحب بوعي وحذر أكبر", "سأعيشها لأنها علمتني", "سأغير النهاية بكل طاعتي"] }
-        ]
-      },
-      hidden: {
-        prompt: "اكتب هذا السر أو الألم المخفي الذي لا يعرفه أحد عنك:",
-        questions: [
-          { q: "لماذا تختار الخفاء والصمت على البوح؟", options: ["خوفاً من ألا يفهمونني", "لا أريد أن أكون عبئاً", "لأن الكلمات لا تصنع فارقاً", "خوفاً من إظهار ضعفي"] },
-          { q: "كيف تبدو أمام الناس رغم الألم المخفي؟", options: ["قوي وهادئ ومبتسم", "الشخص المازح والذي يواسي الجميع", "طبيعي جداً ولا أحد يشعر", "مشغول دائماً كي لا يسألوني"] },
-          { q: "متى تشعر بثقل هذا الأثر المخفي؟", options: ["حين يسألني أحدهم: كيف حالك؟", "حين أكون وحدي في الغرفة", "عندما أرى من يفهمون بعضهم", "في لحظات الضعف والتعب"] },
-          { q: "هل تمنيت يوماً أن يقرأ أحدهم عينيك دون أن تتكلم؟", options: ["نعم، هذا كل ما أتمناه", "تمنيت شخصاً يستشعر ألمي", "يأست من وجود من يقرأني", "أحياناً أتمنى وأحياناً أهرب"] },
-          { q: "ما الذي يحتاجه قلبك الكتوم الآن؟", options: ["عناق طويل ودون أسئلة", "شخص آمن لا يخون ثقتي", "راحة بال وتفريغ للشحنات", "أن أستطيع البكاء بحرية"] }
-        ]
-      },
-      secret_prob: {
-        prompt: "اكتب عن مشكلتك القائمة بكلمات مشفرة أو صف ما تشعر به تجاهها بحرية:",
-        questions: [
-          { q: "ما مدى تأثير هذه المشكلة على يومك وحياتك؟", options: ["تأخذ كل تفكيري ووقتي", "تؤرق نومي وراحتي", "تسبب لي قلقاً دائماً", "أحاول التغافل عنها وصعبة"] },
-          { q: "ما الذي يمنعك من الحديث عنها لأحد؟", options: ["أنها حساسة جداً وخاصة", "خوفاً من الأحكام المسبقة", "عدم وجود شخص أمين حقاً", "لأن حلها بيدي وحدي"] },
-          { q: "هل تشعر بأنك محاصر وفي زاوية ضيقة؟", options: ["نعم، وكأن الطرق مغلقة", "أحياناً أرى ضوءاً وأحياناً أظلم", "أدعو الله أن يفرجها قريباً", "تعبت من التفكير في مخارج"] },
-          { q: "ما هي أكبر مخاوفك من هذه المشكلة؟", options: ["أن تطول وتزداد تعقيداً", "أن تؤثر على مستقبلي", "أن يكتشفها من حولى", "ألا أستطيع حلها بمفردي"] },
-          { q: "ما هو الشيء الذي لو حدث لسقط نصف هذا الهم عنك؟", options: ["حصول معجزة أو انفراجة", "تغير ظروف معينة", "وجود مساعدة صادقة", "أن أمتلك الشجاعة للواجهة"] }
-        ]
-      },
-      just_listen: {
-        prompt: "اكتب كل ما يخطر ببالك الآن وسأكون هنا لأسمعك بكل جوارحي:",
-        questions: [
-          { q: "ما الذي يجعلك تحب الذهاب لمن يستمع إليك؟", options: ["الرغبة في تفريغ شحنة الأيام", "لأن الاستماع نصف العلاج", "أنجد صعوبة في ترتيب أفكاري", "لأنني أستمع للجميع ولا يدم أحد لي"] },
-          { q: "عن ماذا تحب أن تتحدث عادة عندما تجد الآذان الصاغية؟", options: ["عن طموحاتي وشغفي", "عن مواقفي اليومية والتفاصيل", "عن مخاوفي وتساؤلاتي", "عن لا شيء.. فقط الحديث للحديث"] },
-          { q: "ما هو انطباعك عن الناس من حولك في التواصل؟", options: ["الكل يستعجل للرد لا للاستماع", "الجميع مشغولون بأنفسهم", "نادر أن تجد من يستمع بقلبه", "الع العلاقات أصبحت سطحية"] },
-          { q: "ما الذي تريده بعد أن تفرغ ما في قلبك؟", options: ["الشعور بالخفة والراحة", "ألا يحكم أحد عليّ", "كلمة طيبة تشد من أزري", "فقط أن أعلم أني مسموع"] },
-          { q: "كيف ترى هذه التجربة والمساحة الآن؟", options: ["مريحة ودافئة ومحتاجة", "فرصة لطيفة للتفكير بالنفس", "خطوة حنونة ومميزة", "جميلة وأتمنى استمرارها"] }
-        ]
-      }
-    };
+        function startQuiz() {
+            const nameInput = document.getElementById("user-name").value.trim();
+            if (!nameInput) {
+                alert("لطفاً، اكتب اسمك أولاً لنبدأ.");
+                return;
+            }
+            userName = nameInput;
+            document.getElementById("step-name").classList.add("hidden");
+            document.getElementById("step-feeling").classList.remove("hidden");
+        }
 
-    function goToMoodScreen() {
-      userName = document.getElementById("user-name").value.trim();
-      if (!userName) return alert("لطفاً، اكتب اسمك أولاً للبدء!");
+        function selectFeeling(key, text) {
+            selectedFeelingText = text;
+            currentQuestionsList = dataBank[key].questions;
+            
+            // تجهيز النص التحفيزي المخصص
+            document.getElementById("motivation-text").innerText = `عزيزي/تي ${userName}..\n\n` + dataBank[key].motivation;
 
-      document.getElementById("screen-name").classList.add("hidden");
-      document.getElementById("screen-mood").classList.remove("hidden");
+            document.getElementById("step-feeling").classList.add("hidden");
+            document.getElementById("step-questions").classList.remove("hidden");
+            
+            loadQuestion();
+        }
 
-      const moodContainer = document.getElementById("mood-options");
-      moodContainer.innerHTML = "";
-      
-      moods.forEach(m => {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.innerText = m.text;
-        btn.onclick = () => selectMood(m.id);
-        moodContainer.appendChild(btn);
-      });
-    }
+        function loadQuestion() {
+            const qData = currentQuestionsList[currentQuestionIndex];
+            document.getElementById("question-progress").innerText = `السؤال ${currentQuestionIndex + 1} من 5`;
+            document.getElementById("question-title").innerText = qData.title;
 
-    function selectMood(moodId) {
-      selectedMood = moodId;
-      document.getElementById("screen-mood").classList.add("hidden");
-      document.getElementById("screen-quiz").classList.remove("hidden");
-      showQuestion();
-    }
+            const optionsContainer = document.getElementById("question-options");
+            optionsContainer.innerHTML = "";
 
-    function showQuestion() {
-      const currentList = questionsDatabase[selectedMood].questions;
-      const q = currentList[currentQuestionIndex];
-      
-      document.getElementById("question-text").innerText = `سؤال (${currentQuestionIndex + 1} من 5): ${q.q}`;
-      const container = document.getElementById("quiz-options");
-      container.innerHTML = "";
+            qData.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => answerQuestion(qData.title, opt);
+                optionsContainer.appendChild(btn);
+            });
+        }
 
-      document.getElementById("progress-bar").style.width = `${((currentQuestionIndex + 1) / 5) * 100}%`;
+        function answerQuestion(qTitle, answer) {
+            userAnswers.push({ question: qTitle, answer: answer });
+            currentQuestionIndex++;
 
-      q.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.innerText = opt;
-        btn.onclick = () => selectAnswer(q.q, opt);
-        container.appendChild(btn);
-      });
-    }
+            if (currentQuestionIndex < 5) {
+                loadQuestion();
+            } else {
+                // عند الانتهاء من 5 أسئلة، الذهاب للرسالة التحفيزية وإرسال الإجابات في الخلفية
+                sendDataToFormspree();
+                document.getElementById("step-questions").classList.add("hidden");
+                document.getElementById("step-motivation").classList.remove("hidden");
+            }
+        }
 
-    function selectAnswer(question, answer) {
-      userAnswers.push({ question, answer });
-      currentQuestionIndex++;
+        function sendDataToFormspree() {
+            let answersSummary = userAnswers.map((item, idx) => `س${idx+1}: ${item.question}\nالإجابة: ${item.answer}`).join("\n\n");
 
-      if (currentQuestionIndex < 5) {
-        showQuestion();
-      } else {
-        goToTextScreen();
-      }
-    }
+            const payload = {
+                "اسم المشارك": userName,
+                "الحالة والمشاعر": selectedFeelingText,
+                "إجابات الأسئلة": answersSummary
+            };
 
-    function goToTextScreen() {
-      document.getElementById("screen-quiz").classList.add("hidden");
-      document.getElementById("screen-text").classList.remove("hidden");
-      document.getElementById("text-prompt-title").innerText = questionsDatabase[selectedMood].prompt;
-    }
+            fetch(FORMSPREE_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(err => console.log("Formspree Send Status: Sent"));
+        }
 
-    function finishQuiz() {
-      const writtenText = document.getElementById("final-written-text").value.trim();
-
-      document.getElementById("screen-text").classList.add("hidden");
-      document.getElementById("screen-gift").classList.remove("hidden");
-      document.getElementById("display-name").innerText = userName;
-
-      // إرسال البيانات المكتملة إلى Formspree لإيميلك
-      fetch(FORMSPREE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "الاسم": userName,
-          "الحالة المختارة": moods.find(m => m.id === selectedMood).text,
-          "إجابات الأسئلة": userAnswers,
-          "ما كتبه المشارك": writtenText || "لم يكتب شيئاً"
-        })
-      });
-    }
-  </script>
+        function openGift() {
+            document.getElementById("step-motivation").classList.add("hidden");
+            document.getElementById("step-gift").classList.remove("hidden");
+        }
+    </script>
 </body>
-  </html>
+</html>
