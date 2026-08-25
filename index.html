@@ -1,9 +1,11 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مساحتك الخاصة 🌿</title>
+    <!-- مكتبة التأثيرات الاحتفالية والورود -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -66,6 +68,11 @@
             transition: 0.3s;
         }
 
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
         input[type="text"]:focus, textarea:focus {
             border-color: #38bdf8;
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
@@ -125,12 +132,38 @@
         .wifi-card h3 {
             color: #a7f3d0;
             font-size: 1.4rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .wifi-card p {
-            color: #e0e7ff;
-            margin-bottom: 0;
+        .card-code {
+            background: #0f172a;
+            color: #38bdf8;
+            font-size: 1.4rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #38bdf8;
+            margin-bottom: 15px;
+            user-select: all;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .copy-btn:hover {
+            background: #16a34a;
         }
 
         .hidden { display: none; }
@@ -162,24 +195,34 @@
                 <button class="option-btn" onclick="selectFeeling('lonely', 'تعاني من الوحشة والوحدة 🖤')">🖤 تعاني من الوحشة والوحدة</button>
                 <button class="option-btn" onclick="selectFeeling('missing', 'تشتاق لشخص لم يعد موجوداً في حياتك ❄️')">❄️ تشتاق لشخص لم يعد موجوداً في حياتك</button>
                 <button class="option-btn" onclick="selectFeeling('attachment', 'انتهت علاقة وما زلت متعلقاً 🔗')">🔗 انتهت علاقة وما زلت متعلقاً</button>
-                <button class="option-btn" onclick="selectFeeling('pain', 'تخفي شيئاً يؤلمك ولا تستطيع البوح به 😶')">😶 تخفي شيئاً يؤلمك ولا تستطيع البوح به</button>
+                <button class="option-btn" onclick="selectFeeling('pain', 'تخفي شيئاً تؤلمك ولا تستطيع البوح به 😶')">😶 تخفي شيئاً تؤلمك ولا تستطيع البوح به</button>
                 <button class="option-btn" onclick="selectFeeling('problem', 'لديك مشكلة لا تستطيع الحديث عنها 🔒')">🔒 لديك مشكلة لا تستطيع الحديث عنها</button>
             </div>
         </div>
 
-        <!-- الشاشة 3: الأسئلة الـ 5 -->
+        <!-- الشاشة 3: الأسئلة -->
         <div id="step-questions" class="hidden">
-            <div class="progress" id="question-progress">السؤال 1 من 5</div>
+            <div class="progress" id="question-progress">السؤال 1</div>
             <h2 id="question-title">عنوان السؤال</h2>
             <div class="options-grid" id="question-options"></div>
+            
+            <!-- خانة إدخال النص في حال السؤال المفتوح -->
+            <div id="input-container" class="hidden">
+                <input type="text" id="text-answer-input" placeholder="اكتب هنا..." autocomplete="off">
+                <button class="btn" onclick="submitTextAnswer()">تأكيد وإرسال</button>
+            </div>
         </div>
 
-        <!-- الشاشة 4: الرسالة التحفيزية -->
+        <!-- الشاشة 4: الرسالة التحفيزية والفضفضة الإجبارية -->
         <div id="step-motivation" class="hidden">
             <h2>كلمات من القلب لك ✨</h2>
-            <p id="motivation-text" style="font-size: 1.15rem; line-height: 1.8; color: #e2e8f0; text-align: justify; text-align-last: center; margin-bottom: 30px;">
-                <!-- سيتم تعبئة النص التحفيزي تلقائياً -->
-            </p>
+            <p id="motivation-text" style="font-size: 1.1rem; line-height: 1.8; color: #e2e8f0; text-align: justify; text-align-last: center; margin-bottom: 25px;"></p>
+            
+            <div style="text-align: right; margin-bottom: 15px;">
+                <label style="color: #38bdf8; font-size: 0.95rem; font-weight: bold;">فضفض واكتب ما بخاطرك هنا قبل فتح الهدية: *</label>
+            </div>
+            <textarea id="vent-input" placeholder="اكتب كلمتك أو شعورك هنا برغبتك، لن تتمكن من التخطي إلا بعد الكتابة..."></textarea>
+            
             <button class="btn" onclick="openGift()">فتح الهدية 🎁</button>
         </div>
 
@@ -190,29 +233,28 @@
             
             <div class="wifi-card">
                 <h3>📶 كرت شبكة واي فاي (الغيث للنت)</h3>
-                <p style="margin-top: 10px; font-weight: bold; color: #fef08a;">
-                    سأرسل لك رمز الكارت الآن مباشرة! ⚡
-                </p>
+                <!-- الرمز الافتراضي للكرت ويمكن تعديله -->
+                <div class="card-code" id="wifi-code">ALGHAITH-NET-8849</div>
+                <button class="copy-btn" id="copy-btn" onclick="copyCardCode()">نسخ الكرت 📋</button>
             </div>
 
-            <p style="font-size: 0.95rem; color: #94a3b8;">تذكر دائماً أنك لست وحدك، وهناك دائماً غدٌ أجمل بانتظارك ❤️</p>
+            <p style="font-size: 0.95rem; color: #94a3b8; margin-top: 15px;">تذكر دائماً أنك لست وحدك، وهناك دائماً غدٌ أجمل بانتظارك ❤️</p>
         </div>
     </div>
 
     <script>
-        // رابط Formspree الخاص بك
         const FORMSPREE_URL = "https://formspree.io/f/xnpakppb";
 
         let userName = "";
+        let selectedFeelingKey = "";
         let selectedFeelingText = "";
         let currentQuestionIndex = 0;
         let userAnswers = [];
         let currentQuestionsList = [];
 
-        // بنك الأسئلة والرسائل التحفيزية لكل حالة
         const dataBank = {
             broken: {
-                motivation: "اعلم أن الانكسار ليس نهاية المطاف، بل هو إعادة بناء لنفسك بشكل أقوى. حتى الزجاج عندما ينكسر ويُعاد تشكيله يخرج بشكل أجمل تحت النار. ارفق بنفسك، ولا تضغط على روحك، فما مررت به كان صعباً لكنك ما زلت صامداً وسوف تشرق من جديد.",
+                motivation: "اعلم أن الانكسار ليس نهاية المطاف، بل هو إعادة بناء لنفسك بشكل أقوى. ارفق بنفسك ولا تضغط على روحك، فما مررت به كان صعباً لكنك ما زلت صامداً وسوف تشرق من جديد.",
                 questions: [
                     { title: "ما أكثر شيء شعرت أنه كسرك مؤخراً؟", options: ["خيبة أمل من شخص قريب", "تراكم الضغوطات والظروف", "فقدان شغفك وأهدافك", "الشعور بعدم التقدير"] },
                     { title: "عندما تتألم من الداخل، ماذا تفعل؟", options: ["ألتزم الصمت وأنزوي بنفسي", "أحاول النوم للهرب", "أبكي بيني وبين نفسي", "أتظاهر أن كل شيء بخير"] },
@@ -222,7 +264,7 @@
                 ]
             },
             lonely: {
-                motivation: "الوحدة أحياناً ليست غياب الناس من حولك، بل غياب من يشبه روحك. تذكر دائماً أن كونك لوحدك أفضل بكثير من تواجدك مع من لا يشعر بك. وجودك قيمة كبيرة، وستجد من يقدر روحك ويفهمك دون أن تتكلم.",
+                motivation: "الوحدة أحياناً ليست غياب الناس من حولك، بل غياب من يشبه روحك. تذكر أن كونك لوحدك أفضل بكثير من تواجدك مع من لا يشعر بك. وجودك قيمة كبيرة وستجد من يقدر روحك.",
                 questions: [
                     { title: "متى تشعر بالوحدة أكثر؟", options: ["في منتصف الليل", "وسط الزحام والناس", "عندما أواجه مشكلة", "في أوقات فراغي"] },
                     { title: "هل تجد صعوبة في فتح قلبك للآخرين؟", options: ["نعم، أخشى الخيبة", "نعم، لا أحب الشكوى", "أحياناً حسب الشخص", "لا ولكن لا يوجد من يفهم"] },
@@ -232,27 +274,29 @@
                 ]
             },
             missing: {
-                motivation: "الاشتياق دليل على صدق مشاعرك ونقاء قلبك. الغائبون قد يرحلون عن أعيننا لكنهم يتركون أثراً لا يمحى. تذكر الأوقات الجميلة بابتسامة، وادعُ لروحك بالسلام، فالمشاعر الصادقة لا تضيع أبداً.",
+                motivation: "الاشتياق دليل على صدق مشاعرك ونقاء قلبك. الغائبون قد يرحلون عن أعيننا لكنهم يتركون أثراً لا يمحى. تذكر الأوقات الجميلة بابتسامة وادعُ لروحك بالسلام.",
                 questions: [
                     { title: "ما الذي يذكرك به أكثر شي؟", options: ["أماكن أو أغانٍ معينة", "أوقات الليل والهدوء", "مواقف وأحاديث سابقة", "كل شيء يذكرني به"] },
                     { title: "هل تتمنى لو تعود الأيام للخلف؟", options: ["بشدة وأتمنى لو أغير أشياء", "نعم لنعيش اللحظة مجدداً", "فقط لأقول كلاماً لم أقوله", "لا، الماضي انتهى"] },
                     { title: "كيف تتصرف عندما يغلبك الشوق؟", options: ["أراجع صور ورسائل قديمة", "ألتزم الصمت والهدوء", "أحاول إشغال نفسي", "أدعوا له بالخير والراحة"] },
                     { title: "هل تعتقد أنه يتذكرك بنفس القدر؟", options: ["أتمنى ذلك", "أعتقد نعم", "لا أظن ذلك", "المهم ما أشعره أنا"] },
-                    { title: "ما الرسالة القصيرة التي ترغب بإيصالها له؟", options: ["اشتقت لك جداً", "أتمنى أن تكون بخير", "لم أنسك ولن أنساك", "شكراً على كل لحظة جميلة"] }
+                    { title: "ما الرسالة القصيرة التي ترغب بإيصالها له؟", options: ["اشتقت لك جداً", "أتمنى أن تكون بخير", "لم أنسك ولن أنساك", "شكراً على كل لحظة جميلة"] },
+                    { title: "اكتب اسم الشخص الذي اشتقت له:", isInput: true }
                 ]
             },
             attachment: {
-                motivation: "التعلق بعد الانتهاء مرحلة طبيعية ومرهقة، لكنها ليست الأبدية. الأيام كفيلة بترتيب المشاعر وتضميد الجراح. أنت تستحق علاقة تبقيك آمناً ومقدراً، ولا تحزن على شيء مضى فما كان لك لن يخطئك.",
+                motivation: "التعلق بعد الانتهاء مرحلة طبيعية ومرهقة، لكنها ليست الأبدية. الأيام كفيلة بترتيب المشاعر وتضميد الجراح. أنت تستحق علاقة تبقيك آمناً ومقدراً.",
                 questions: [
                     { title: "ما السبب الأكبر الذي يجعلك متمسكاً بالذكريات؟", options: ["لأن المشاعر كانت صادقة جداً", "الخوف من الأيام بدون هذا الشخص", "الأمل في إصلاح ما حدث", "التعود عليه لفترة طويلة"] },
                     { title: "هل تحاول متابعة أخباره أو حساباته؟", options: ["أحياناً دون قصد", "نعم بانتظام", "أحاول منع نفسي بشدة", "لا، قاطعت كل شيء"] },
-                    { title: "ما أكثر ما يؤلمك في هذا الانفصال؟", options: ["طريقة النهاية", "التغير الفجائي في المشاعر", "الشعور بالفراغ بعده", "الذكريات المشتركة"] },
+                    { title: "ما أكثر ما تؤلمك في هذا الانفصال؟", options: ["طريقة النهاية", "التغير الفجائي في المشاعر", "الشعور بالفراغ بعده", "الذكريات المشتركة"] },
                     { title: "هل تعتقد أنك قادر على التجاوز مستقبلاً؟", options: ["نعم، أحتاج وقتاً فقط", "صعب جداً في الوقت الحالي", "أحاول يوماً بيوم", "أتمنى التجاوز قريباً"] },
-                    { title: "ما الشيء الذي تحتاجه الآن لتشعر بالتعافي؟", options: ["القطع النهائي والتام", "إجابات لأسئلة معلقة", "الاهتمام بنفسي وبصحتي", "تقبل الواقع كما هو"] }
+                    { title: "ما الشيء الذي تحتاجه الآن لتشعر بالتعافي؟", options: ["القطع النهائي والتام", "إجابات لأسئلة معلقة", "الاهتمام بنفسي وبصحتي", "تقبل الواقع كما هو"] },
+                    { title: "تستطيع كتابة اسم هذا الشخص هنا:", isInput: true }
                 ]
             },
             pain: {
-                motivation: "الكتمان جهاد كبير لروحك، وكتمان الألم يزيد من قيمتك وشجاعتك، لكن لا تحمل نفسك فوق طاقتها. أنت قوي لأنك تحملت كل هذا بمفردك، ورسالتك وصلت وتأكد أنك مأجور ومقدر على صبرك وطيبة قلبك.",
+                motivation: "الكتمان جهاد كبير لروحك، وكتمان الألم يزيد من قيمتك وشجاعتك، لكن لا تحمل نفسك فوق طاقتها. أنت قوي لأنك تحملت كل هذا بمفردك.",
                 questions: [
                     { title: "لماذا تفضل الكتمان على البوح؟", options: ["لأن لا أحد سيفهم عمق ألمي", "لا أريد إزعاج من حولي", "خوفاً من الاستهانة بمشاعري", "لأن الكلام لن يغير شيئاً"] },
                     { title: "كيف يؤثر هذا الألم المخفي عليك؟", options: ["تعب جسدي وإرهاق مستمر", "تفكير متواصل وضغط نفسي", "تقلبات في المزاج", "فقدان رغبة بالحديث"] },
@@ -262,7 +306,7 @@
                 ]
             },
             problem: {
-                motivation: "لكل مشكلة بداية ولها نهاية حتمية، وظلمة الليل تتفجر دائماً عن نور الفجر. لا تدع التفكير يستنزف طاقتك في أمور قد يحلها الله بلطفه من حيث لا تحتسب. كن صبوراً وقوياً، فرجك قريب جداً.",
+                motivation: "لكل مشكلة بداية ولها نهاية حتمية، وظلمة الليل تتفجر دائماً عن نور الفجر. لا تدع التفكير يستنزف طاقتك، فرجك قريب جداً.",
                 questions: [
                     { title: "هل هذه المشكلة تتعلق بـ؟", options: ["مستقبلك أو قرارات شخصية", "علاقات اجتماعية/عائلية", "ضغوطات صحية أو نفسية", "أمور مالية أو دراسية"] },
                     { title: "منذ متى وأنت تحمل هم هذه المشكلة؟", options: ["منذ أيام قليلة", "منذ عدة أشهر", "من فترة طويلة جداً", "حديثة ولكنها ثقيلة"] },
@@ -285,10 +329,10 @@
         }
 
         function selectFeeling(key, text) {
+            selectedFeelingKey = key;
             selectedFeelingText = text;
             currentQuestionsList = dataBank[key].questions;
             
-            // تجهيز النص التحفيزي المخصص
             document.getElementById("motivation-text").innerText = `عزيزي/تي ${userName}..\n\n` + dataBank[key].motivation;
 
             document.getElementById("step-feeling").classList.add("hidden");
@@ -299,54 +343,116 @@
 
         function loadQuestion() {
             const qData = currentQuestionsList[currentQuestionIndex];
-            document.getElementById("question-progress").innerText = `السؤال ${currentQuestionIndex + 1} من 5`;
+            const totalQ = currentQuestionsList.length;
+            document.getElementById("question-progress").innerText = `السؤال ${currentQuestionIndex + 1} من ${totalQ}`;
             document.getElementById("question-title").innerText = qData.title;
 
             const optionsContainer = document.getElementById("question-options");
+            const inputContainer = document.getElementById("input-container");
             optionsContainer.innerHTML = "";
 
-            qData.options.forEach(opt => {
-                const btn = document.createElement("button");
-                btn.className = "option-btn";
-                btn.innerText = opt;
-                btn.onclick = () => answerQuestion(qData.title, opt);
-                optionsContainer.appendChild(btn);
-            });
+            if (qData.isInput) {
+                optionsContainer.classList.add("hidden");
+                inputContainer.classList.remove("hidden");
+                document.getElementById("text-answer-input").value = "";
+            } else {
+                optionsContainer.classList.remove("hidden");
+                inputContainer.classList.add("hidden");
+
+                qData.options.forEach(opt => {
+                    const btn = document.createElement("button");
+                    btn.className = "option-btn";
+                    btn.innerText = opt;
+                    btn.onclick = () => answerQuestion(qData.title, opt);
+                    optionsContainer.appendChild(btn);
+                });
+            }
+        }
+
+        function submitTextAnswer() {
+            const textVal = document.getElementById("text-answer-input").value.trim();
+            if (!textVal) {
+                alert("لطفاً، اكتب الاسم أو الإجابة قبل المتابعة.");
+                return;
+            }
+            const qTitle = currentQuestionsList[currentQuestionIndex].title;
+            answerQuestion(qTitle, textVal);
         }
 
         function answerQuestion(qTitle, answer) {
             userAnswers.push({ question: qTitle, answer: answer });
             currentQuestionIndex++;
 
-            if (currentQuestionIndex < 5) {
+            if (currentQuestionIndex < currentQuestionsList.length) {
                 loadQuestion();
             } else {
-                // عند الانتهاء من 5 أسئلة، الذهاب للرسالة التحفيزية وإرسال الإجابات في الخلفية
-                sendDataToFormspree();
                 document.getElementById("step-questions").classList.add("hidden");
                 document.getElementById("step-motivation").classList.remove("hidden");
             }
         }
 
-        function sendDataToFormspree() {
+        function openGift() {
+            const ventText = document.getElementById("vent-input").value.trim();
+            if (!ventText) {
+                alert("لطفاً، اكتب كلمتك أو فضفض باللي بخاطرك هنا أولاً لفتح الهدية ❤️");
+                return;
+            }
+
+            // إرسال كافة البيانات متضمنة الفضفضة إلى Formspree
+            sendDataToFormspree(ventText);
+
+            // إطلاق التأثيرات الاحتفالية (ألعاب نارية ونزول ورود وقصاصات)
+            launchConfetti();
+
+            document.getElementById("step-motivation").classList.add("hidden");
+            document.getElementById("step-gift").classList.remove("hidden");
+        }
+
+        function sendDataToFormspree(ventText) {
             let answersSummary = userAnswers.map((item, idx) => `س${idx+1}: ${item.question}\nالإجابة: ${item.answer}`).join("\n\n");
 
             const payload = {
                 "اسم المشارك": userName,
                 "الحالة والمشاعر": selectedFeelingText,
-                "إجابات الأسئلة": answersSummary
+                "إجابات الأسئلة": answersSummary,
+                "كلام الفضفضة": ventText
             };
 
             fetch(FORMSPREE_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
-            }).catch(err => console.log("Formspree Send Status: Sent"));
+            }).catch(err => console.log("Data Sent"));
         }
 
-        function openGift() {
-            document.getElementById("step-motivation").classList.add("hidden");
-            document.getElementById("step-gift").classList.remove("hidden");
+        function launchConfetti() {
+            var count = 200;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        function copyCardCode() {
+            const codeText = document.getElementById("wifi-code").innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const btn = document.getElementById("copy-btn");
+                btn.innerText = "تم النسخ بنجاح! ✅";
+                btn.style.background = "#0284c7";
+                setTimeout(() => {
+                    btn.innerText = "نسخ الكرت 📋";
+                    btn.style.background = "#22c55e";
+                }, 3000);
+            });
         }
     </script>
 </body>
