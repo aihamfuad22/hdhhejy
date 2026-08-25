@@ -120,6 +120,7 @@
             border-color: #38bdf8;
         }
 
+        /* تنسيق كرت الواي فاي الجديد */
         .wifi-card {
             background: linear-gradient(135deg, #1e1b4b, #312e81);
             border: 2px dashed #818cf8;
@@ -127,33 +128,35 @@
             padding: 25px;
             margin: 20px 0;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
         }
 
         .wifi-card h3 {
             color: #a7f3d0;
             font-size: 1.4rem;
+            font-weight: 800;
             margin-bottom: 15px;
         }
 
         .card-code {
             background: #0f172a;
             color: #38bdf8;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
             letter-spacing: 2px;
-            padding: 12px;
+            padding: 14px;
             border-radius: 10px;
             border: 1px solid #38bdf8;
             margin-bottom: 15px;
             user-select: all;
-            word-break: break-all;
+            direction: ltr;
         }
 
         .copy-btn {
             background: #22c55e;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: bold;
@@ -166,7 +169,7 @@
             background: #16a34a;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         
         .progress {
             font-size: 0.9rem;
@@ -232,10 +235,10 @@
             <p>شكراً لثقتك ووقتك ومشاركتك مشاعرك معنا.</p>
             
             <div class="wifi-card">
-                <h3>📶 كرت شبكة واي فاي (الغيث للنت)</h3>
-                <!-- رقم الكرت الصحيح المحدث -->
+                <h3>كرت شبكة الغيث</h3>
+                <!-- رقم الكرت فقط -->
                 <div class="card-code" id="wifi-code">144396598</div>
-                <button class="copy-btn" id="copy-btn" onclick="copyCardCode()">نسخ الكرت 📋</button>
+                <button class="copy-btn" id="copy-btn" onclick="copyCardCode()">نسخ 📋</button>
             </div>
 
             <p style="font-size: 0.95rem; color: #94a3b8; margin-top: 15px;">تذكر دائماً أنك لست وحدك، وهناك دائماً غدٌ أجمل بانتظارك ❤️</p>
@@ -398,10 +401,10 @@
                 return;
             }
 
-            // إرسال كافة البيانات متضمنة الفضفضة إلى Formspree
+            // إرسال البيانات إلى Formspree
             sendDataToFormspree(ventText);
 
-            // إطلاق التأثيرات الاحتفالية (ألعاب نارية ونزول ورود وقصاصات)
+            // إطلاق التأثيرات الاحتفالية
             launchConfetti();
 
             document.getElementById("step-motivation").classList.add("hidden");
@@ -446,10 +449,10 @@
             const codeText = document.getElementById("wifi-code").innerText;
             navigator.clipboard.writeText(codeText).then(() => {
                 const btn = document.getElementById("copy-btn");
-                btn.innerText = "تم النسخ بنجاح! ✅";
+                btn.innerText = "تم نسخ الرمز بنجاح! ✅";
                 btn.style.background = "#0284c7";
                 setTimeout(() => {
-                    btn.innerText = "نسخ الكرت 📋";
+                    btn.innerText = "نسخ 📋";
                     btn.style.background = "#22c55e";
                 }, 3000);
             });
